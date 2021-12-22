@@ -85,54 +85,35 @@ var upperCasedCharacters = [
 ];
 
 // Assignment Code
-var generateBtn = document.querySelector("#generate");      // !selects the red 'generate password' button. 
+var generateBtn = document.querySelector("#generate"); 
 
 // Write password to the #password input
 function writePassword() {
-  var password = generatePassword();                        // !create a variable that runs a function to generate a password.
-  var passwordText = document.querySelector("#password");   // !selects the textarea in HTML
-  passwordText.value = password;                            // !sets the value of the textarea to the password variable
+  var password = generatePassword(); 
+  var passwordText = document.querySelector("#password");  
+  passwordText.value = password;                            
 
 }
 
-/* 
-WHEN the button is pressed  
-PROMPT for password length (8-128 characters)
-  IF password length is less than 8 or greater than 128
-    ALERT the user that they must choose a number between 8 and 128
-  ELSE 
-    STORE user input as password length
-
-PROMPT for lowercase letters
-PROMPT for uppercase letters
-PROMPT for numeric values
-PROMPT to include special symbols
-  CHECK to see if no parameters were selected
-    IF none were selected
-      ALERT user that parameters must be selected
-  
-ONCE everything has been answered
-  generate a password that matches the criteria
-  display the password in the text area 
-*/
-
 function generatePassword() {
+  var password = '';
+  var passwordLength = getLength(); // get password length
+  var parameters = getParameters();// create array of available characters
 
-  var passwordLength = getLength();
-  console.log(passwordLength);
-
-  console.log(getParameters());
+  for (var i = 0; i < passwordLength; i++) {
+    password = password.concat(parameters[randomNumber(parameters.length)]);
+  }
 
   return password;
 }
 
-// gather length input from user
-function getLength() {
+function getLength() { // gather length input from user
   var length;
 
   length = parseInt(prompt("Enter the length of your password."));
 
   if (length >= 8 && length <= 128) {
+    console.log(length);
     return length;
   } else {
     length = '';
@@ -142,33 +123,41 @@ function getLength() {
 }
 
 function getParameters() {
-  // ask for parameters for password array creation
-  var hasNumbers = confirm("Include numbers?")
+  var hasNumbers = confirm("Include numbers?") // ask for parameters for password array creation
   var hasSpecial = confirm("Include special characters?");
   var hasLowercase = confirm("Include lowercase letters?");
   var hasUppercase = confirm("Include uppercase letters?");
 
-  // returns true/false list for each parameter
-  return createArray(hasNumbers, hasSpecial, hasLowercase, hasUppercase);
+  return createArray(hasNumbers, hasSpecial, hasLowercase, hasUppercase); // returns true/false list for each parameter
 }
 
 function createArray(number, special, lowercase, uppercase) {
-  // create empty array that will store possible character choices
-  var passwordArray = [];
+  var passwordArray = []; // create empty array that will store possible character choices
 
-  // check for parameters
-  if (!number && !special && !lowercase && !uppercase) {
+  if (!number && !special && !lowercase && !uppercase) { // check for parameters
     alert('You must pick at least one paramter.');
     getParameters();
-  } else {
-    // validate which arrays to concat to passwordArray
-    if (number) { passwordArray = passwordArray.concat(numericCharacters); }
-    if (special) { passwordArray = passwordArray.concat(specialCharaters); }
-    if (lowercase) { passwordArray = passwordArray.concat(lowerCasedCharacters); }
-    if (uppercase) { passwordArray = passwordArray.concat(upperCasedCharacters); }
+  } else { // validate which arrays to concat to passwordArray
+    if (number) { 
+      passwordArray = passwordArray.concat(numericCharacters); 
+    }
+    if (special) { 
+      passwordArray = passwordArray.concat(specialCharaters); 
+    }
+    if (lowercase) { 
+      passwordArray = passwordArray.concat(lowerCasedCharacters); 
+    }
+    if (uppercase) { 
+      passwordArray = passwordArray.concat(upperCasedCharacters); 
+    }
   }
   
+  console.log(passwordArray);
   return passwordArray;
+}
+
+function randomNumber(max) {
+  return Math.floor(Math.random() * max);
 }
 
 generateBtn.addEventListener("click", writePassword); 
