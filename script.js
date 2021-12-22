@@ -97,7 +97,7 @@ function writePassword() {
 
 function generatePassword() {
   var password = '';
-  var passwordLength = getLength(); // get password length
+  var passwordLength = getPasswordLength(); // get password length
   var parameters = getParameters();// create array of available characters
 
   for (var i = 0; i < passwordLength; i++) {
@@ -107,31 +107,28 @@ function generatePassword() {
   return password;
 }
 
-function getLength() { // gather length input from user
-  var length;
+function getPasswordLength() { // gather length input from user
+  var passwordLength = parseInt(prompt("Enter the length of your password."));
 
-  length = parseInt(prompt("Enter the length of your password."));
-
-  if (length >= 8 && length <= 128) {
-    console.log(length);
-    return length;
+  if (passwordLength >= 8 && passwordLength <= 128) {
+    return passwordLength;
   } else {
-    length = '';
     alert('Please select a number between 8 and 128');
-    return getLength(); // recursively call itself
+    return getPasswordLength(); // recursively call the function until an accepted input is entered
   }
 }
 
 function getParameters() {
-  var hasNumbers = confirm("Include numbers?") // ask for parameters for password array creation
-  var hasSpecial = confirm("Include special characters?");
-  var hasLowercase = confirm("Include lowercase letters?");
-  var hasUppercase = confirm("Include uppercase letters?");
+  var includeNumbers = confirm("Include numbers?") // ask for parameters for password array creation
+  var includeSpecial = confirm("Include special characters?");
+  var includeLowercase = confirm("Include lowercase letters?");
+  var includeUppercase = confirm("Include uppercase letters?");
 
-  return createArray(hasNumbers, hasSpecial, hasLowercase, hasUppercase); // returns true/false list for each parameter
+  return createArray(includeNumbers, includeSpecial, includeLowercase, includeUppercase); // returns true/false list for each parameter
 }
 
 function createArray(number, special, lowercase, uppercase) {
+  
   var passwordArray = []; // create empty array that will store possible character choices
 
   if (!number && !special && !lowercase && !uppercase) { // check for parameters
@@ -151,8 +148,7 @@ function createArray(number, special, lowercase, uppercase) {
       passwordArray = passwordArray.concat(upperCasedCharacters); 
     }
   }
-  
-  console.log(passwordArray);
+
   return passwordArray;
 }
 
