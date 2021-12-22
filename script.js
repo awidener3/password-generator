@@ -97,19 +97,9 @@ function writePassword() {
 }
 
 function generatePassword() {
-  var passwordLength = parseInt(prompt("Enter the length of your password"));
 
-  if (passwordLength < 8 || passwordLength > 128) {
-    alert('Please select a number between 8 and 128');
-  }
+  var passwordLength = getLength();
   console.log(passwordLength);
-
-
-
-
-
-
-
 
   var hasNumbers = confirm("Include numbers?") // returns true or false
   console.log(hasNumbers);
@@ -122,12 +112,6 @@ function generatePassword() {
 
   var hasUppercase = confirm("Include uppercase letters?");
   console.log(hasUppercase);
-
-  // TODO: create arrays of each variable and push them onto array
-
-  var upperCaseLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  var lowerCaseLetters = 'abcdefghijklmnopqrstuvwxyz';
-  var numericValues = '0123456789';
 
   /* 
   WHEN the button is pressed  
@@ -150,6 +134,17 @@ function generatePassword() {
   */
 
   return password;
+}
+
+function getLength() {
+  var length = parseInt(prompt("Enter the length of your password."));
+
+  if (length >= 8 && length <= 128) {
+    return length;
+  } else {
+    alert('Please select a number between 8 and 128');
+    getLength(); // recursively call itself
+  }
 }
 
 // Add event listener to generate button
