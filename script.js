@@ -84,7 +84,6 @@ var upperCasedCharacters = [
   "Z",
 ];
 
-
 // Assignment Code
 var generateBtn = document.querySelector("#generate");      // !selects the red 'generate password' button. 
 
@@ -96,57 +95,80 @@ function writePassword() {
 
 }
 
+/* 
+WHEN the button is pressed  
+PROMPT for password length (8-128 characters)
+  IF password length is less than 8 or greater than 128
+    ALERT the user that they must choose a number between 8 and 128
+  ELSE 
+    STORE user input as password length
+
+PROMPT for lowercase letters
+PROMPT for uppercase letters
+PROMPT for numeric values
+PROMPT to include special symbols
+  CHECK to see if no parameters were selected
+    IF none were selected
+      ALERT user that parameters must be selected
+  
+ONCE everything has been answered
+  generate a password that matches the criteria
+  display the password in the text area 
+*/
+
 function generatePassword() {
 
   var passwordLength = getLength();
   console.log(passwordLength);
 
-  var hasNumbers = confirm("Include numbers?") // returns true or false
-  console.log(hasNumbers);
-
-  var hasSpecialCharacters = confirm("Include special characters?");
-  console.log(hasSpecialCharacters);
-
-  var hasLowercase = confirm("Include lowercase letters?");
-  console.log(hasLowercase);
-
-  var hasUppercase = confirm("Include uppercase letters?");
-  console.log(hasUppercase);
-
-  /* 
-  WHEN the button is pressed  
-  PROMPT for password length (8-128 characters)
-        IF password length is less than 8 or greater than 128
-          ALERT the user that they must choose a number between 8 and 128
-        ELSE 
-          STORE user input as password length
-      PROMPT for lowercase letters
-      PROMPT for uppercase letters
-      PROMPT for numeric values
-      PROMPT to include special symbols
-        CHECK to see if no parameters were selected
-          IF none were selected
-            ALERT user that parameters must be selected
-    
-    once everything has been answered
-      generate a password that matches the criteria
-      display the password in the text area 
-  */
+  console.log(getParameters());
 
   return password;
 }
 
+// gather length input from user
 function getLength() {
-  var length = parseInt(prompt("Enter the length of your password."));
+  var length;
+
+  length = parseInt(prompt("Enter the length of your password."));
 
   if (length >= 8 && length <= 128) {
     return length;
   } else {
+    length = '';
     alert('Please select a number between 8 and 128');
-    getLength(); // recursively call itself
+    return getLength(); // recursively call itself
   }
 }
 
-// Add event listener to generate button
-// waits for a click on red button and runs writePassword() when it is clicked.
+function getParameters() {
+  // ask for parameters for password array creation
+  var hasNumbers = confirm("Include numbers?")
+  var hasSpecial = confirm("Include special characters?");
+  var hasLowercase = confirm("Include lowercase letters?");
+  var hasUppercase = confirm("Include uppercase letters?");
+
+  // returns true/false list for each parameter
+  return createArray(hasNumbers, hasSpecial, hasLowercase, hasUppercase);
+}
+
+function createArray(number, special, lowercase, uppercase) {
+  // create empty array that will store possible character choices
+  var passwordArray = [];
+
+  // check for parameters
+  if (!number && !special && !lowercase && !uppercase) {
+    alert('You must pick at least one paramter.');
+    getParameters();
+  } else {
+    // validate which arrays to concat to passwordArray
+    if (number) { passwordArray = passwordArray.concat(numericCharacters); }
+    if (special) { passwordArray = passwordArray.concat(specialCharaters); }
+    if (lowercase) { passwordArray = passwordArray.concat(lowerCasedCharacters); }
+    if (uppercase) { passwordArray = passwordArray.concat(upperCasedCharacters); }
+  }
+  
+  return passwordArray;
+}
+
 generateBtn.addEventListener("click", writePassword); 
