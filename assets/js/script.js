@@ -133,7 +133,7 @@ function createArray(number, special, lowercase, uppercase) {
 
   if (!number && !special && !lowercase && !uppercase) { // check for parameters
     alert('You must pick at least one parameter.');
-    getParameters();
+    return getParameters();
   } else { // validate which arrays to concat to passwordArray
     if (number) { 
       passwordArray = passwordArray.concat(numericCharacters); 
