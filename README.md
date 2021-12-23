@@ -5,9 +5,7 @@
 Given starter code, modify the **JavaScript** file so that I create an application that enables the user to generate a random password based on criteria that they have selected. This should run in browser, and dynamically update the HTML and CSS. The application should also have a clean and polished, responsive user interfacte that adapts to multiple screen sizes.
 
 ## 🔍 Preview
-PREVIEW GIF GOES HERE
-
-PREVIEW IMAGE GOES HERE
+![A gif of the generator in action!](assets/images/password-generator-preview.gif)
 
 ## 📝 User Story
 

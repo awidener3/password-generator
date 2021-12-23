@@ -132,7 +132,7 @@ function createArray(number, special, lowercase, uppercase) {
   var passwordArray = []; // create empty array that will store possible character choices
 
   if (!number && !special && !lowercase && !uppercase) { // check for parameters
-    alert('You must pick at least one paramter.');
+    alert('You must pick at least one parameter.');
     getParameters();
   } else { // validate which arrays to concat to passwordArray
     if (number) { 
